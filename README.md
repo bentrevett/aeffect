@@ -20,6 +20,7 @@ Use aeffect with:
 - `aeffect "These tricks have no [MASK] on me."`
   - Your query needs to be enclosed in quotation marks.
   - The `[MASK]` is where the affect/effect should be.
+  - There should only be a single `[MASK]` token in the query.
 
 This will print:
 
