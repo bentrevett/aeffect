@@ -10,8 +10,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("query", type=str)
 args = parser.parse_args()
 
-assert "[MASK]" in args.query, "Query needs to have a [MASK] token!"
-assert args.query.count(MASK_TOKEN) == 1, "Queries should only have a single [MASK] token!"
+assert MASK_TOKEN in args.query, f"Query needs to have a {MASK_TOKEN} token!"
+assert args.query.count(MASK_TOKEN) == 1, "Queries should only have a single {MASK_TOKEN} token!"
 
 transformers.logging.set_verbosity(transformers.logging.ERROR)
 
