@@ -1,5 +1,10 @@
 # aeffect
 
+<p align="center">
+  <img src="aeffect.jpg">
+  This is what you get when you search "aeffect" on Google Images.
+</p>
+
 I can never remember when to use affect/effect, so I built this to tell me which to use. It is basically a very small amount of code using HuggingFace's [fill-mask](https://huggingface.co/tasks/fill-mask) pipelines, with a `"bert-base-cased"` model to predict the `[MASK]` token. The code is wrapped in an installable package and script, so can be called from anywhere.
 
 ## Usage
