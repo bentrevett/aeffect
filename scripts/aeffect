@@ -1,0 +1,25 @@
+import argparse
+
+import torch
+import transformers
+
+parser = argparse.ArgumentParser()
+parser.add_argument("query", type=str)
+args = parser.parse_args()
+
+assert "[MASK]" in args.query, "Query needs to have a [MASK] token!"
+
+MODEL_NAME = "bert-base-cased"
+
+transformers.logging.set_verbosity(transformers.logging.ERROR)
+
+model = transformers.AutoModel.from_pretrained(MODEL_NAME)
+pipe = transformers.pipeline("fill-mask", model=MODEL_NAME)
+
+with torch.inference_mode():
+    result = pipe(args.query, targets=["effect", "affect"])
+
+for res in result:
+    seq = res["sequence"]
+    score = res["score"]
+    print(f"({score*100:05.2f}%): {seq}")
