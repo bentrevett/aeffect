@@ -5,20 +5,21 @@ import transformers
 
 MODEL_NAME = "bert-base-cased"
 MASK_TOKEN = "[MASK]"
+TARGETS = ["effect", "affect"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument("query", type=str)
 args = parser.parse_args()
 
 assert MASK_TOKEN in args.query, f"Query needs to have a {MASK_TOKEN} token!"
-assert args.query.count(MASK_TOKEN) == 1, "Queries should only have a single {MASK_TOKEN} token!"
+assert args.query.count(MASK_TOKEN) == 1, f"Queries should only have a single {MASK_TOKEN} token!"
 
 transformers.logging.set_verbosity(transformers.logging.ERROR)
 
 pipe = transformers.pipeline("fill-mask", model=MODEL_NAME)
 
 with torch.inference_mode():
-    result = pipe(args.query, targets=["effect", "affect"])
+    result = pipe(args.query, targets=TARGETS)
 
 for res in result:
     seq = res["sequence"]
